@@ -1,0 +1,329 @@
+@import '~antd/es/style/themes/default.less';
+
+@theme-primary: #692c96;
+@text-dark: #333333;
+@text-secondary: #666666;
+@border-color: #e5e7eb;
+@bg-light: #f5f5f5;
+@card-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+
+// ============================================
+// DASHBOARD WRAPPER
+// ============================================
+.dashboardWrapper {
+  width: 100%;
+  min-height: calc(100vh - 67px);
+  padding: 24px;
+  background: @bg-light;
+}
+
+// ============================================
+// PAGE HEADER - Title Section
+// ============================================
+.pageHeader {
+  margin-bottom: 24px;
+}
+
+.pageTitle {
+  margin: 0 0 4px 0;
+  color: @text-dark;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.3;
+}
+
+.breadcrumb {
+  margin: 0;
+  color: @text-secondary;
+  font-size: 14px;
+}
+
+// ============================================
+// FILTER CARD
+// ============================================
+.filterCard {
+  margin-bottom: 20px;
+  padding: 20px 24px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: @card-shadow;
+}
+
+.filterTitle {
+  margin: 0 0 20px 0;
+  color: @text-dark;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.filterRow {
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
+}
+
+.filterField {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filterLabel {
+  color: @text-dark;
+  font-size: 14px;
+
+  .required {
+    color: #ff4d4f;
+  }
+}
+
+.locationSelect {
+  width: 400px;
+}
+
+.locationSelect :global(.ant-select-selector) {
+  height: 40px !important;
+  border: 1px solid @border-color !important;
+  border-radius: 6px !important;
+}
+
+.locationSelect :global(.ant-select-selection-item),
+.locationSelect :global(.ant-select-selection-placeholder) {
+  line-height: 38px !important;
+}
+
+.locationSelect:hover :global(.ant-select-selector),
+.locationSelect:global(.ant-select-focused) :global(.ant-select-selector) {
+  border-color: @theme-primary !important;
+}
+
+.datePicker {
+  width: 140px;
+  height: 40px;
+  border: 1px solid @border-color;
+  border-radius: 6px;
+
+  &:hover,
+  &:focus {
+    border-color: @theme-primary;
+  }
+}
+
+.filterButton {
+  min-width: 100px;
+  height: 40px;
+  padding: 0 24px;
+  color: #fff;
+  font-weight: 500;
+  font-size: 14px;
+  background-color: @theme-primary;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: darken(@theme-primary, 8%);
+  }
+}
+
+// ============================================
+// SECTION CARD (Analytics Overview, Attendance Types)
+// ============================================
+.sectionCard {
+  margin-bottom: 20px;
+  padding: 20px 24px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: @card-shadow;
+}
+
+.sectionTitle {
+  margin: 0 0 20px 0;
+  color: @text-dark;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+// ============================================
+// ANALYTICS CARDS ROW
+// ============================================
+.analyticsRow {
+  display: flex;
+  gap: 16px;
+}
+
+.analyticsCard {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  background: #fff;
+  border: 1px solid @border-color;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: box-shadow 0.2s, border-color 0.2s;
+
+  &:hover {
+    border-color: @theme-primary;
+    box-shadow: 0 4px 12px rgba(105, 44, 150, 0.15);
+  }
+}
+
+.cardIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+  font-size: 24px;
+  border-radius: 50%;
+}
+
+// Icon variations
+.iconApple {
+  color: @theme-primary;
+  background: rgba(105, 44, 150, 0.1);
+}
+
+.iconAndroid {
+  color: @theme-primary;
+  background: rgba(105, 44, 150, 0.1);
+}
+
+.iconCheckin {
+  color: @theme-primary;
+  background: rgba(105, 44, 150, 0.1);
+}
+
+.iconCheckout {
+  color: @theme-primary;
+  background: rgba(105, 44, 150, 0.1);
+}
+
+.cardNumber {
+  margin: 0 0 4px 0;
+  color: @text-dark;
+  font-weight: 600;
+  font-size: 20px;
+  text-align: center;
+}
+
+.cardLabel {
+  margin: 0;
+  color: @text-secondary;
+  font-size: 13px;
+  text-align: center;
+}
+
+// ============================================
+// ATTENDANCE TYPES CARDS ROW
+// ============================================
+.attendanceRow {
+  display: flex;
+  gap: 16px;
+}
+
+.attendanceCard {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 12px;
+  background: #fff;
+  border: 1px solid @border-color;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: box-shadow 0.2s, border-color 0.2s;
+
+  &:hover {
+    border-color: @theme-primary;
+    box-shadow: 0 4px 12px rgba(105, 44, 150, 0.15);
+  }
+}
+
+// Attendance icon variations
+.iconQrIn {
+  color: @theme-primary;
+  background: rgba(105, 44, 150, 0.1);
+}
+
+.iconQrOut {
+  color: @theme-primary;
+  background: rgba(105, 44, 150, 0.1);
+}
+
+.iconFaceIn {
+  color: @theme-primary;
+  background: rgba(105, 44, 150, 0.1);
+}
+
+.iconFaceOut {
+  color: @theme-primary;
+  background: rgba(105, 44, 150, 0.1);
+}
+
+.iconAdminIn {
+  color: @theme-primary;
+  background: rgba(105, 44, 150, 0.1);
+}
+
+.iconAdminOut {
+  color: @theme-primary;
+  background: rgba(105, 44, 150, 0.1);
+}
+
+// ============================================
+// CHART CARDS
+// ============================================
+.chartCard {
+  margin-bottom: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: @card-shadow;
+}
+
+.chartHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid @border-color;
+}
+
+.chartTitle {
+  margin: 0;
+  color: @text-dark;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.chartLegend {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  color: @text-secondary;
+  font-size: 13px;
+}
+
+.legendDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+
+  &.green {
+    background-color: #52c41a;
+  }
+
+  &.blue {
+    background-color: #1890ff;
+  }
+}
+
+.chartBody {
+  padding: 24px;
+}

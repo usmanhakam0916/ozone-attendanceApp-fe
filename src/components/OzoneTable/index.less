@@ -1,0 +1,305 @@
+@import '~antd/es/style/themes/default.less';
+
+@theme-primary: #692C96;
+@text-dark: #333333;
+@text-secondary: #666666;
+@border-color: #e8e8e8;
+@bg-light: #f5f5f5;
+@table-header-bg: #fafafa;
+
+.ozoneTableWrapper {
+  width: 100%;
+  min-height: calc(100vh - 67px);
+  background: @bg-light;
+  padding: 50px 50px;
+}
+
+// Page Header - matches Figma
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.headerLeft {
+  display: flex;
+  flex-direction: column;
+}
+
+.pageTitle {
+  font-size: 24px;
+  font-weight: 600;
+  color: @text-dark;
+  margin: 0 0 4px 0;
+  line-height: 1.3;
+}
+
+.pageSubtitle {
+  font-size: 14px;
+  color: @text-secondary;
+  margin: 0;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+}
+
+// Table Card - white background with rounded corners
+.tableCard {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+// Filter Bar - Figma exact dimensions
+.filterBar {
+  display: flex;
+  align-items: center;
+  padding: 16px 24px;
+  gap: 12px;
+  background: #fff;
+  border-bottom: 1px solid @border-color;
+}
+
+.searchWrapper {
+  flex: 1;
+  max-width: 800px;
+}
+
+.searchInput {
+  width: 100%;
+  height: 40px !important;
+  border-radius: 4px !important;
+  border: 1px solid @border-color !important;
+  background: #fff !important;
+  
+  .ant-input {
+    height: 38px !important;
+    background: #fff !important;
+  }
+  
+  &:hover,
+  &:focus,
+  &:focus-within {
+    border-color: @theme-primary !important;
+  }
+}
+
+.searchIcon {
+  color: #999;
+  font-size: 14px;
+}
+
+.filtersWrapper {
+  display: flex;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.filterSelect {
+  min-width: 300px;
+  
+  .ant-select-selector {
+    height: 40px !important;
+    border-radius: 4px !important;
+    border: 1px solid @border-color !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+  
+  .ant-select-selection-item,
+  .ant-select-selection-placeholder {
+    line-height: 38px !important;
+  }
+  
+  &:hover .ant-select-selector,
+  &.ant-select-focused .ant-select-selector {
+    border-color: @theme-primary !important;
+  }
+}
+
+// Table - Figma exact styling
+.ozoneTable {
+  .ant-table {
+    border-radius: 0;
+  }
+  
+  .ant-table-thead > tr > th {
+    background: @table-header-bg;
+    color: @text-dark;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 16px 24px;
+    border-bottom: 1px solid @border-color;
+    white-space: nowrap;
+    
+    &::before {
+      display: none !important;
+    }
+  }
+  
+  .ant-table-tbody > tr > td {
+    padding: 16px 24px;
+    font-size: 13px;
+    color: @text-dark;
+    border-bottom: 1px solid @border-color;
+    vertical-align: middle;
+  }
+  
+  .ant-table-tbody > tr:hover > td {
+    background: #fafafa;
+  }
+  
+  .ant-table-tbody > tr:last-child > td {
+    border-bottom: none;
+  }
+  
+  // Empty state
+  .ant-empty {
+    margin: 60px 0;
+  }
+}
+
+// Pagination Bar - Figma exact styling
+.paginationBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  border-top: 1px solid @border-color;
+  background: #fff;
+}
+
+.pagination {
+  .ant-pagination-item {
+    min-width: 32px;
+    height: 32px;
+    line-height: 30px;
+    border-radius: 4px;
+    font-size: 14px;
+    border: 1px solid @border-color;
+    
+    a {
+      color: @text-dark;
+    }
+    
+    &:hover {
+      border-color: @theme-primary;
+      
+      a {
+        color: @theme-primary;
+      }
+    }
+  }
+  
+  .ant-pagination-item-active {
+    background-color: @theme-primary;
+    border-color: @theme-primary;
+    
+    a {
+      color: #fff;
+    }
+    
+    &:hover a {
+      color: #fff;
+    }
+  }
+  
+  .ant-pagination-prev,
+  .ant-pagination-next {
+    min-width: 32px;
+    height: 32px;
+    line-height: 30px;
+    
+    .ant-pagination-item-link {
+      border-radius: 4px;
+      border: 1px solid @border-color;
+    }
+    
+    &:hover .ant-pagination-item-link {
+      border-color: @theme-primary;
+      color: @theme-primary;
+    }
+  }
+}
+
+.resultPerPage {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: @text-secondary;
+}
+
+.pageSizeSelect {
+  width: 70px;
+  
+  .ant-select-selector {
+    height: 32px !important;
+    border-radius: 4px !important;
+    border: 1px solid @border-color !important;
+  }
+  
+  .ant-select-selection-item {
+    line-height: 30px !important;
+  }
+}
+
+// Status Badge
+.statusBadge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  
+  &.active {
+    background-color: rgba(82, 196, 26, 0.1);
+    color: #52c41a;
+  }
+  
+  &.inactive {
+    background-color: rgba(255, 77, 79, 0.1);
+    color: #ff4d4f;
+  }
+}
+
+// Attendance Type Badge
+.typeBadge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  background-color: #f0f0f0;
+  color: @text-dark;
+}
+
+// Three dots action
+.actionIcon {
+  font-size: 18px;
+  color: @text-secondary;
+  cursor: pointer;
+  padding: 4px;
+  
+  &:hover {
+    color: @theme-primary;
+  }
+}
+
+// Employee cell with avatar
+.employeeCell {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: 10px;
+  object-fit: cover;
+}

@@ -1,0 +1,26 @@
+@import '~antd/es/style/themes/default.less';
+
+@theme-primary: #692C96;
+
+.createBtn {
+  height: 40px;
+  padding: 0 24px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: @theme-primary !important;
+  border-color: @theme-primary !important;
+  
+  &:hover,
+  &:focus {
+    background-color: darken(@theme-primary, 8%) !important;
+    border-color: darken(@theme-primary, 8%) !important;
+  }
+}
+
+.tableHeight {
+  height: 100vh;
+}

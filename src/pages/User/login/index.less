@@ -1,0 +1,221 @@
+@import '~antd/es/style/themes/default.less';
+
+@primary-purple: #643F7A;
+@input-bg: #F7F7F7;
+@text-dark: #333333;
+@text-label: #333333;
+@placeholder-color: #999999;
+@error-red: #ff4d4f;
+
+/* Form width: 436.77px from Figma */
+.main {
+  width: 100%;
+  max-width: 437px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  color: @text-dark;
+  margin-bottom: 32px;
+  line-height: 1.3;
+}
+
+.form {
+  width: 100%;
+}
+
+.formGroup {
+  margin-bottom: 20px;
+}
+
+.label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: @text-label;
+  margin-bottom: 8px;
+}
+
+.required {
+  color: @error-red;
+  margin-right: 2px;
+}
+
+/* Input height: 52px from Figma */
+.input {
+  width: 100%;
+  height: 52px;
+  padding: 0 16px;
+  font-size: 14px;
+  color: @text-dark;
+  background-color: @input-bg;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  transition: box-shadow 0.2s;
+  box-sizing: border-box;
+
+  &::placeholder {
+    color: @placeholder-color;
+    font-size: 14px;
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 2px rgba(100, 63, 122, 0.2);
+  }
+}
+
+.passwordWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.passwordWrapper .input {
+  padding-right: 48px;
+}
+
+.passwordToggle {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #999999;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    color: @primary-purple;
+  }
+}
+
+.rememberRow {
+  margin-bottom: 24px;
+  margin-top: 4px;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.customCheckbox {
+  width: 18px;
+  height: 18px;
+  background-color: #ffffff;
+  border: 2px solid #d9d9d9;
+  border-radius: 3px;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+
+  &::after {
+    content: '';
+    display: none;
+    width: 5px;
+    height: 9px;
+    border: solid #ffffff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    margin-bottom: 2px;
+  }
+}
+
+.checkbox:checked + .customCheckbox {
+  background-color: @primary-purple;
+  border-color: @primary-purple;
+
+  &::after {
+    display: block;
+  }
+}
+
+.checkbox:focus + .customCheckbox {
+  box-shadow: 0 0 0 2px rgba(100, 63, 122, 0.2);
+}
+
+.checkboxText {
+  font-size: 14px;
+  color: @text-dark;
+}
+
+/* Button height: 52px from Figma (same as input) */
+.submitButton {
+  width: 100%;
+  height: 52px;
+  background-color: @primary-purple;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s, opacity 0.2s;
+
+  &:hover {
+    background-color: darken(@primary-purple, 5%);
+  }
+
+  &:active {
+    background-color: darken(@primary-purple, 10%);
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+.errorMessage {
+  color: @error-red;
+  font-size: 14px;
+  margin-bottom: 16px;
+  padding: 8px 12px;
+  background-color: #fff2f0;
+  border: 1px solid #ffccc7;
+  border-radius: 4px;
+}
+
+.fieldError {
+  color: @error-red;
+  font-size: 12px;
+  margin-top: 4px;
+  display: block;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: @screen-sm) {
+  .main {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .title {
+    font-size: 22px;
+    margin-bottom: 24px;
+  }
+
+  .input {
+    height: 48px;
+  }
+
+  .submitButton {
+    height: 48px;
+  }
+}

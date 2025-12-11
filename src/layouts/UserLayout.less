@@ -1,0 +1,161 @@
+@import '~antd/es/style/themes/default.less';
+
+.loading {
+  position: fixed;
+  top: 35%;
+  left: 50%;
+  z-index: 1000;
+  width: 31px;
+  height: 31px;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Left Half - White Section (826px / 1440px = 57.36%) */
+.leftHalf {
+  width: 57.36%;
+  height: 100%;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.logoContainer {
+  position: absolute;
+  top: 32px;
+  left: 36px;
+}
+
+.logo {
+  width: 119px;
+  height: auto;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  padding: 0 20px;
+}
+
+/* Right Half - Gradient Section (614px / 1440px = 42.64%) */
+.rightHalf {
+  width: 42.64%;
+  height: 100%;
+  background: linear-gradient(180deg, #704689 0%, #603C75 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Language Dropdown */
+.languageDropdown {
+  position: absolute;
+  top: 24px;
+  right: 32px;
+}
+
+.languageSelector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 8px 12px;
+}
+
+.dropdownIcon {
+  font-size: 10px;
+  color: #ffffff;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  min-width: 120px;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.dropdownItem {
+  padding: 10px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333333;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #f5f5f5;
+  }
+
+  &.selected {
+    background-color: #f0e6f5;
+    color: #643F7A;
+  }
+}
+
+/* Illustration - 483.92px x 348.44px in Figma */
+.illustrationContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.illustration {
+  /* 483.92px / 614px = 78.8% of purple section width */
+  width: 78.8%;
+  max-width: 484px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Responsive */
+@media screen and (max-width: 992px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .leftHalf {
+    width: 100%;
+    min-height: 100vh;
+    order: 1;
+  }
+
+  .rightHalf {
+    display: none;
+  }
+
+  .formContainer {
+    padding: 0 24px;
+  }
+
+  .logoContainer {
+    top: 24px;
+    left: 24px;
+  }
+}
+
+@media screen and (max-width: @screen-sm) {
+  .formContainer {
+    padding: 0 16px;
+  }
+}

@@ -1,0 +1,435 @@
+@import '~antd/es/style/themes/default.less';
+
+// Theme colors
+@theme-primary: #692c96;
+@sidebar-bg: #692c96;
+@sidebar-width: 255px;
+@header-height: 67px;
+@sidebar-selected-bg: rgba(255, 255, 255, 0.15);
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+.colorWeak {
+  filter: invert(80%);
+}
+
+.ant-layout {
+  min-height: 100vh;
+}
+
+canvas {
+  display: block;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+// ============================================
+// HEADER STYLING - Height: 67px
+// ============================================
+.ant-pro-global-header {
+  height: @header-height !important;
+  padding: 0 24px 0 0 !important;
+  line-height: @header-height !important;
+  background-color: @theme-primary !important;
+}
+
+// ============================================
+// SIDEBAR STYLING - Width: 255px
+// ============================================
+.ant-layout-sider {
+  flex: 0 0 @sidebar-width !important;
+  width: @sidebar-width !important;
+  min-width: @sidebar-width !important;
+  max-width: @sidebar-width !important;
+  background: @sidebar-bg !important;
+}
+
+.ant-layout-sider-collapsed {
+  flex: 0 0 80px !important;
+  width: 80px !important;
+  min-width: 80px !important;
+  max-width: 80px !important;
+}
+
+.ant-pro-sider {
+  background: @sidebar-bg !important;
+}
+
+.ant-pro-sider.ant-layout-sider {
+  flex: 0 0 @sidebar-width !important;
+  width: @sidebar-width !important;
+  min-width: @sidebar-width !important;
+  max-width: @sidebar-width !important;
+}
+
+.ant-pro-sider.ant-layout-sider-collapsed {
+  flex: 0 0 80px !important;
+  width: 80px !important;
+  min-width: 80px !important;
+  max-width: 80px !important;
+}
+
+// Logo container - Logo: 121px x 52.68px, centered in sidebar
+.ant-pro-sider-logo {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: @header-height !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  line-height: @header-height !important;
+  background-color: @sidebar-bg !important;
+  transition: all 0.3s ease !important;
+}
+
+.ant-pro-sider-logo a {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 100% !important;
+  transition: all 0.3s ease !important;
+}
+
+.ant-pro-sider-logo img {
+  width: 211px !important;
+  height: 358px !important;
+  transition: all 0.3s ease !important;
+}
+
+.ant-pro-sider-logo h1 {
+  display: none !important;
+}
+
+// Hide the default collapse button in sidebar - we use our own in header
+.ant-pro-sider-collapsed-button {
+  display: none !important;
+}
+
+// Sidebar links container - hide default
+.ant-pro-sider-links {
+  display: none !important;
+  background: @sidebar-bg !important;
+}
+
+// ============================================
+// COLLAPSE BUTTON - Keep outside sidebar
+// ============================================
+// Ensure the header content area starts after the sidebar
+.ant-pro-global-header-layout-side {
+  padding-left: 0 !important;
+}
+
+// The collapse button container in header should be visible and outside sidebar
+.ant-pro-global-header .ant-pro-global-header-trigger {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 48px !important;
+  height: @header-height !important;
+  color: #fff !important;
+  font-size: 18px !important;
+  background: transparent !important;
+  cursor: pointer !important;
+}
+
+.ant-pro-global-header .ant-pro-global-header-trigger:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+// Sidebar menu
+.ant-pro-sider-menu {
+  background: @sidebar-bg !important;
+}
+
+.ant-menu {
+  padding: 8px !important;
+  background: @sidebar-bg !important;
+}
+
+.ant-menu-item {
+  height: 44px !important;
+  margin: 4px 0 !important;
+  padding-left: 16px !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  line-height: 44px !important;
+  border-radius: 6px !important;
+}
+
+.ant-menu-item a {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.ant-menu-item .anticon {
+  margin-right: 12px !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  font-size: 18px !important;
+}
+
+.ant-menu-item:hover {
+  color: #fff !important;
+  background-color: @sidebar-selected-bg !important;
+}
+
+.ant-menu-item:hover a {
+  color: #fff !important;
+}
+
+.ant-menu-item:hover .anticon {
+  color: #fff !important;
+}
+
+.ant-menu-item-selected {
+  color: #fff !important;
+  background-color: @sidebar-selected-bg !important;
+}
+
+.ant-menu-item-selected a {
+  color: #fff !important;
+}
+
+.ant-menu-item-selected .anticon {
+  color: #fff !important;
+}
+
+.ant-menu-item-selected::after {
+  display: none !important;
+}
+
+.ant-menu-item-active {
+  color: #fff !important;
+  background-color: @sidebar-selected-bg !important;
+}
+
+.ant-menu-item-active a,
+.ant-menu-item-active .anticon {
+  color: #fff !important;
+}
+
+.ant-pro-sider.ant-layout-sider-light .ant-menu-item a {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.ant-pro-sider.ant-layout-sider-light .ant-menu-item a:hover {
+  color: #fff !important;
+}
+
+.ant-pro-sider-light .ant-menu-light {
+  background-color: @sidebar-bg !important;
+}
+
+// Sidebar links container
+.ant-pro-sider-links {
+  display: none !important;
+  background: @sidebar-bg !important;
+}
+
+// Submenu styling
+.ant-menu-submenu-title {
+  height: 44px !important;
+  margin: 4px 0 !important;
+  padding-left: 16px !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  line-height: 44px !important;
+  border-radius: 6px !important;
+}
+
+.ant-menu-submenu-title .anticon {
+  margin-right: 12px !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  font-size: 18px !important;
+}
+
+.ant-menu-submenu-title:hover {
+  color: #fff !important;
+  background-color: @sidebar-selected-bg !important;
+}
+
+.ant-menu-submenu-title:hover .anticon {
+  color: #fff !important;
+}
+
+.ant-menu-submenu-arrow {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.ant-menu-submenu-arrow::before,
+.ant-menu-submenu-arrow::after {
+  background: rgba(255, 255, 255, 0.85) !important;
+}
+
+// ============================================
+// PAGE CONTAINER
+// ============================================
+.ant-page-header-heading {
+  display: none;
+}
+
+.ant-pro-page-container-children-content {
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #f5f5f5 !important;
+  box-shadow: none !important;
+}
+
+.ant-pro-page-container-warp .ant-page-header {
+  display: none !important;
+}
+
+.ant-breadcrumb {
+  display: none !important;
+}
+
+// ============================================
+// TABLE STYLING
+// ============================================
+.ant-table-pagination-right {
+  justify-content: flex-start !important;
+  margin-top: 16px !important;
+}
+
+.ant-pagination-item-active {
+  font-weight: 600 !important;
+  background-color: @theme-primary !important;
+  border-color: @theme-primary !important;
+}
+
+.ant-pagination-item-active a {
+  color: #fff !important;
+}
+
+.ant-pagination-item {
+  font-weight: 500 !important;
+  border-radius: 4px !important;
+}
+
+.ant-pagination-item:hover {
+  border-color: @theme-primary !important;
+}
+
+.ant-pagination-item:hover a {
+  color: @theme-primary !important;
+}
+
+.ant-pagination-prev .ant-pagination-item-link,
+.ant-pagination-next .ant-pagination-item-link {
+  border-radius: 4px !important;
+}
+
+.ant-pagination-prev:hover .ant-pagination-item-link,
+.ant-pagination-next:hover .ant-pagination-item-link {
+  color: @theme-primary !important;
+  border-color: @theme-primary !important;
+}
+
+// ============================================
+// CARD STYLING
+// ============================================
+.ant-card {
+  border-radius: 8px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+.ant-card-body {
+  padding: 0 !important;
+}
+
+// ============================================
+// BUTTON STYLING
+// ============================================
+.ant-btn-primary {
+  background-color: @theme-primary !important;
+  border-color: @theme-primary !important;
+}
+
+.ant-btn-primary:hover,
+.ant-btn-primary:focus {
+  background-color: darken(@theme-primary, 8%) !important;
+  border-color: darken(@theme-primary, 8%) !important;
+}
+
+.ant-btn-background-ghost.ant-btn-primary {
+  color: @theme-primary !important;
+  border-color: @theme-primary !important;
+}
+
+.ant-btn-background-ghost.ant-btn-primary:hover,
+.ant-btn-background-ghost.ant-btn-primary:focus {
+  color: darken(@theme-primary, 8%) !important;
+  border-color: darken(@theme-primary, 8%) !important;
+}
+
+// ============================================
+// FORM STYLING
+// ============================================
+.ant-input-number {
+  width: 100% !important;
+}
+
+.dumb-form input,
+.dumb-form textarea {
+  border-color: #d9d9d9 !important;
+  box-shadow: 0 0 0 0 rgba(44, 59, 254, 0) !important;
+  cursor: default !important;
+  caret-color: transparent !important;
+}
+
+.text-primary {
+  color: @theme-primary !important;
+}
+
+.ant-divider-horizontal {
+  margin: 16px 0 !important;
+}
+
+// ============================================
+// SELECT & SORTER STYLING
+// ============================================
+.ant-table-column-sorter-inner .anticon {
+  color: @theme-primary !important;
+}
+
+.ant-select-arrow svg,
+.ant-select-arrow:hover svg,
+.ant-select:hover svg {
+  color: @theme-primary !important;
+}
+
+// ============================================
+// RESPONSIVE
+// ============================================
+@media (max-width: @screen-xs) {
+  .ant-table {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .ant-table-thead > tr > th,
+  .ant-table-tbody > tr > td {
+    white-space: pre;
+  }
+
+  .ant-table-thead > tr > th > span,
+  .ant-table-tbody > tr > td > span {
+    display: block;
+  }
+}
+
+// IE11 compatibility
+@media screen and(-ms-high-contrast: active), (-ms-high-contrast: none) {
+  body .ant-design-pro > .ant-layout {
+    min-height: 100vh;
+  }
+}

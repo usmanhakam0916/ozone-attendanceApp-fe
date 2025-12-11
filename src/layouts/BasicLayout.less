@@ -1,0 +1,95 @@
+@import '~antd/es/style/themes/default.less';
+
+@theme-primary: #692c96;
+@header-height: 67px;
+
+// Logo - 121px x 52.68px, centered in sidebar
+.logoRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.logo {
+  width: 121px;
+  height: auto;
+  max-height: 52px;
+  transition: all 0.3s ease;
+}
+
+.logoCollapsed {
+  width: 36px;
+  height: auto;
+  max-height: 32px;
+  transition: all 0.3s ease;
+}
+
+// Header content with collapse button and search
+.headerContent {
+  display: flex;
+  align-items: center;
+  height: @header-height;
+  padding-left: 0;
+}
+
+// Collapse button - positioned outside sidebar, always visible
+.collapseButton {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin-right: 8px;
+  margin-left: 28px;
+  color: #fff;
+  font-size: 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.collapseButton:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+// Header search - 267px x 31px, radius: 30px
+.headerSearch {
+  margin-left: 8px;
+}
+
+.searchInput {
+  width: 267px;
+  height: 31px;
+  background: rgba(255, 255, 255, 0.15) !important;
+  border: none !important;
+  border-radius: 30px !important;
+}
+
+.searchInput .ant-input {
+  height: 29px;
+  color: #fff;
+  font-size: 13px;
+  background: transparent !important;
+}
+
+.searchInput .ant-input::placeholder {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.searchInput .ant-input-prefix {
+  margin-right: 8px;
+}
+
+.searchInput .ant-input-affix-wrapper {
+  padding: 0 12px;
+  background: transparent !important;
+  border: none !important;
+}
+
+.searchInput:hover,
+.searchInput:focus {
+  background: rgba(255, 255, 255, 0.2) !important;
+}
