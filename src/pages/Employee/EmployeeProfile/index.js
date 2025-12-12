@@ -473,7 +473,7 @@ const KeystarProfile = ({
               </TabPane>
               <TabPane tab="Attendance History" key="2">
                 <Card
-                  title={`${employeeData?.almanaUser?.data?.data?.emp_No} ${employeeData?.almanaUser?.data?.data?.emP_Name}`}
+                  //title={`${employeeData?.almanaUser?.data?.data?.emp_No} ${employeeData?.almanaUser?.data?.data?.emP_Name}`}
                   // extra={
                   //   userRole === 'admin' ? (
                   //     <Tooltip placement="top" title="Create New Attendance">
