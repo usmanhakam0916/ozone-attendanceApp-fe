@@ -56,7 +56,7 @@ const Model = {
             me?.authUser?.type === 'supervisor' ||
             me?.authUser?.type === 'employee')
         ) {
-          debugger;
+          //debugger;
           const data = { access_token: response.access_token, role: response.role };
           local.insertIntoStorage(data, response.rememberMe);
           local.checkStorage();
