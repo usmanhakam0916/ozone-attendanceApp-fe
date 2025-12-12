@@ -33,17 +33,31 @@ const AttendanceListing = (props) => {
     dispatch({ type: `${NAME_SPACE}/downloadCSV`, payload: { ...employeeFilter } });
   };
 
-  // Check if any item has REQUESTED status
+  // Check if any item has CHECKIN_REQUESTED or CHECKOUT_REQUESTED status
   const hasRequestedItems = useMemo(() => {
-    return data?.some((item) => item.updateRequestStatus === 'REQUESTED');
+    return data?.some((item) => 
+      item.updateRequestStatus === 'CHECKIN_REQUESTED' || 
+      item.updateRequestStatus === 'CHECKOUT_REQUESTED'
+    );
   }, [data]);
 
-  const handleAccept = useCallback((attendanceId) => {
+  // Map request status to approved status
+  const getApprovedStatus = (requestStatus) => {
+    if (requestStatus === 'CHECKIN_REQUESTED') {
+      return 'CHECKIN_APPROVED';
+    }
+    if (requestStatus === 'CHECKOUT_REQUESTED') {
+      return 'CHECKOUT_APPROVED';
+    }
+    return 'APPROVED';
+  };
+
+  const handleAccept = useCallback((attendanceId, requestStatus) => {
     dispatch({
       type: `${NAME_SPACE}/updateRequestStatus`,
       payload: {
         attendanceId,
-        status: 'APPROVED',
+        status: getApprovedStatus(requestStatus),
         take: pageSize,
         skip: (currentPage - 1) * pageSize,
         ...employeeFilter,

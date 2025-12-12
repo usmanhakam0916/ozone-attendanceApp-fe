@@ -3,6 +3,11 @@ import { formatDate } from '@/utils/utils';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { Button, Space } from 'antd';
 
+// Helper to check if status is a request type
+const isRequestedStatus = (status) => {
+  return status === 'CHECKIN_REQUESTED' || status === 'CHECKOUT_REQUESTED';
+};
+
 export const getColumns = (hasRequestedItems, onAccept, onReject, loadingId) => {
   const baseColumns = [
     {
@@ -65,14 +70,14 @@ export const getColumns = (hasRequestedItems, onAccept, onReject, loadingId) => 
     },
   ];
 
-  // Only add Request Area column if there are items with REQUESTED status
+  // Only add Request Area column if there are items with CHECKIN_REQUESTED or CHECKOUT_REQUESTED status
   if (hasRequestedItems) {
     baseColumns.push({
       title: 'Request Area',
       key: '8',
       width: '15%',
       render: (_, object) => {
-        if (object.updateRequestStatus === 'REQUESTED') {
+        if (isRequestedStatus(object.updateRequestStatus)) {
           const isLoading = loadingId === object.id;
           return (
             <Space>
@@ -81,7 +86,7 @@ export const getColumns = (hasRequestedItems, onAccept, onReject, loadingId) => 
                 size="small"
                 icon={<CheckOutlined />}
                 loading={isLoading}
-                onClick={() => onAccept(object.id)}
+                onClick={() => onAccept(object.id, object.updateRequestStatus)}
               >
                 Accept
               </Button>
