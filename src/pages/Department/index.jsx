@@ -25,19 +25,19 @@ const Departments = ({ dispatch, loading, isSearch, departments, totalDepartment
 
   const columns = getColumns({ dispatch, userRole });
 
-  const handleSearch = (value) => {
-    if (value) {
-      dispatch({
-        type: `${NAME_SPACE}/searchDepartments`,
-        payload: { name: value },
-      });
-    } else {
-      dispatch({
-        type: `${NAME_SPACE}/fetchDepartments`,
-        payload: { take: pageSize, skip: 0 },
-      });
-    }
-  };
+  // const handleSearch = (value) => {
+  //   if (value) {
+  //     dispatch({
+  //       type: `${NAME_SPACE}/searchDepartments`,
+  //       payload: { name: value },
+  //     });
+  //   } else {
+  //     dispatch({
+  //       type: `${NAME_SPACE}/fetchDepartments`,
+  //       payload: { take: pageSize, skip: 0 },
+  //     });
+  //   }
+  // };
 
   const handlePageChange = (page, size) => {
     setCurrentPage(page);
@@ -85,8 +85,8 @@ const Departments = ({ dispatch, loading, isSearch, departments, totalDepartment
         pageSize={pageSize}
         currentPage={currentPage}
         onPageChange={handlePageChange}
-        onSearch={handleSearch}
-        searchPlaceholder="Search Keywords..."
+        // onSearch={handleSearch}
+        // searchPlaceholder="Search Keywords..."
         // filters={filters}
         rowKey="id"
       />

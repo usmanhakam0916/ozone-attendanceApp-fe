@@ -32,38 +32,42 @@ const OzoneTable = ({
       </div>
 
       <div className={styles.tableCard}>
-        <div className={styles.filterBar}>
-          <div className={styles.searchWrapper}>
-            <Input
-              className={styles.searchInput}
-              placeholder={searchPlaceholder}
-              prefix={<SearchOutlined className={styles.searchIcon} />}
-              onChange={(e) => onSearch && onSearch(e.target.value)}
-              allowClear
-            />
+        {(onSearch || filters.length > 0) && (
+          <div className={styles.filterBar}>
+            {onSearch && (
+              <div className={styles.searchWrapper}>
+                <Input
+                  className={styles.searchInput}
+                  placeholder={searchPlaceholder}
+                  prefix={<SearchOutlined className={styles.searchIcon} />}
+                  onChange={(e) => onSearch(e.target.value)}
+                  allowClear
+                />
+              </div>
+            )}
+            <div className={styles.filtersWrapper}>
+              {filters.map((filter, index) => (
+                <Select
+                  key={filter.key || index}
+                  className={styles.filterSelect}
+                  placeholder={filter.placeholder}
+                  allowClear={filter.allowClear !== false}
+                  showSearch={filter.showSearch}
+                  optionFilterProp="children"
+                  onChange={filter.onChange}
+                  value={filter.value}
+                  style={filter.style}
+                >
+                  {filter.options?.map((opt) => (
+                    <Option key={opt.value} value={opt.value}>
+                      {opt.label}
+                    </Option>
+                  ))}
+                </Select>
+              ))}
+            </div>
           </div>
-          <div className={styles.filtersWrapper}>
-            {filters.map((filter, index) => (
-              <Select
-                key={filter.key || index}
-                className={styles.filterSelect}
-                placeholder={filter.placeholder}
-                allowClear={filter.allowClear !== false}
-                showSearch={filter.showSearch}
-                optionFilterProp="children"
-                onChange={filter.onChange}
-                value={filter.value}
-                style={filter.style}
-              >
-                {filter.options?.map((opt) => (
-                  <Option key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </Option>
-                ))}
-              </Select>
-            ))}
-          </div>
-        </div>
+        )}
 
         <Table
           className={styles.ozoneTable}
