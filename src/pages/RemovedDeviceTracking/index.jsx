@@ -90,7 +90,7 @@ const RemovedDeviceTracking = ({
         onPageChange={handlePageChange}
         onSearch={handleSearch}
         searchPlaceholder="Search Keywords..."
-        filters={filters}
+        // filters={filters}
         rowKey="id"
       />
     </PageContainer>
