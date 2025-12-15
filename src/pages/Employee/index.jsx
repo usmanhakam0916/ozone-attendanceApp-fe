@@ -199,26 +199,26 @@ const EmployeeListing = (props) => {
     },
   ];
 
-  const headerRight = (
-    <Button
-      type="primary"
-      icon={<PlusOutlined />}
-      className={styles.addUserBtn}
-      disabled={loading}
-      onClick={() => {
-        dispatch({
-          type: `${NAME_SPACE}/showModal`,
-          payload: {
-            visible: true,
-            title: 'Create new Employee',
-            id: null,
-          },
-        });
-      }}
-    >
-      Add User
-    </Button>
-  );
+  // const headerRight = (
+  //   <Button
+  //     type="primary"
+  //     icon={<PlusOutlined />}
+  //     className={styles.addUserBtn}
+  //     disabled={loading}
+  //     onClick={() => {
+  //       dispatch({
+  //         type: `${NAME_SPACE}/showModal`,
+  //         payload: {
+  //           visible: true,
+  //           title: 'Create new Employee',
+  //           id: null,
+  //         },
+  //       });
+  //     }}
+  //   >
+  //     Add User
+  //   </Button>
+  // );
 
   return (
     <PageContainer header={{ title: null }}>
@@ -235,7 +235,7 @@ const EmployeeListing = (props) => {
         onSearch={handleSearch}
         searchPlaceholder="Search Keywords..."
         filters={filters}
-        headerRight={headerRight}
+        // headerRight={headerRight}
         rowKey="id"
       />
 

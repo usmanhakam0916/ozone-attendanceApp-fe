@@ -9,49 +9,49 @@ import { NAME_SPACE } from './constants';
 
 export const getColumns = ({ dispatch, userRole }) =>
   [
-    {
-      title: 'User ID',
-      width: '10%',
-      render: (_, object) => {
-        const imageUrl = object?.avatar?.id ? `${IMAGE_BASE_URL}${object?.avatar?.key}` : avatar;
-        let title = imageUrl?.split('/');
-        title = title[title.length - 1];
-        return (
-          <div
-            style={{ display: 'flex', alignItems: 'center', cursor: userRole === 'admin' ? 'pointer' : 'default' }}
-            onClick={() => {
-              if (userRole === 'admin') {
-                dispatch({
-                  type: `${NAME_SPACE}/setImageModal`,
-                  payload: {
-                    visible: true,
-                    title,
-                    imageUrl,
-                  },
-                });
-              }
-            }}
-          >
-            {userRole === 'admin' && (
-              <img 
-                src={imageUrl} 
-                alt="" 
-                style={{ 
-                  width: 32, 
-                  height: 32, 
-                  borderRadius: '50%', 
-                  marginRight: 10, 
-                  objectFit: 'cover' 
-                }} 
-              />
-            )}
-            <span>{object?.authUser?.username}</span>
-          </div>
-        );
-      },
-      sorter: (a, b) => getStringSorterWithoutKey(a, b),
-      key: '1',
-    },
+    // {
+    //   title: 'User ID',
+    //   width: '10%',
+    //   render: (_, object) => {
+    //     const imageUrl = object?.avatar?.id ? `${IMAGE_BASE_URL}${object?.avatar?.key}` : avatar;
+    //     let title = imageUrl?.split('/');
+    //     title = title[title.length - 1];
+    //     return (
+    //       <div
+    //         style={{ display: 'flex', alignItems: 'center', cursor: userRole === 'admin' ? 'pointer' : 'default' }}
+    //         onClick={() => {
+    //           if (userRole === 'admin') {
+    //             dispatch({
+    //               type: `${NAME_SPACE}/setImageModal`,
+    //               payload: {
+    //                 visible: true,
+    //                 title,
+    //                 imageUrl,
+    //               },
+    //             });
+    //           }
+    //         }}
+    //       >
+    //         {userRole === 'admin' && (
+    //           <img 
+    //             src={imageUrl} 
+    //             alt="" 
+    //             style={{ 
+    //               width: 32, 
+    //               height: 32, 
+    //               borderRadius: '50%', 
+    //               marginRight: 10, 
+    //               objectFit: 'cover' 
+    //             }} 
+    //           />
+    //         )}
+    //         <span>{object?.authUser?.username}</span>
+    //       </div>
+    //     );
+    //   },
+    //   sorter: (a, b) => getStringSorterWithoutKey(a, b),
+    //   key: '1',
+    // },
     {
       title: 'Name',
       width: '12%',
