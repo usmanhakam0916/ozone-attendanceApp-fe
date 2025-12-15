@@ -10,7 +10,8 @@ import { getColumns } from './columns';
 import { NAME_SPACE } from './constants';
 
 const AttendanceListing = (props) => {
-  const { dispatch, loading, data, total, employeeFilter, departments, updatingRequestId } = props;
+  const { dispatch, loading, data, total, employeeFilter, departments, updatingRequestId, currentUser } = props;
+  const isAdmin = currentUser?.group === 'admin';
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(50);
 
@@ -79,8 +80,8 @@ const AttendanceListing = (props) => {
   }, [dispatch, pageSize, currentPage, employeeFilter]);
 
   const columns = useMemo(() => {
-    return getColumns(hasRequestedItems, handleAccept, handleReject, updatingRequestId);
-  }, [hasRequestedItems, handleAccept, handleReject, updatingRequestId]);
+    return getColumns(hasRequestedItems, handleAccept, handleReject, updatingRequestId, isAdmin);
+  }, [hasRequestedItems, handleAccept, handleReject, updatingRequestId, isAdmin]);
 
   const handleSearch = (value) => {
     dispatch({
@@ -162,12 +163,13 @@ const AttendanceListing = (props) => {
 };
 
 export default connect(
-  ({ [GLOBAL_NAME_SPACE]: { employeeFilter }, [NAME_SPACE]: { data, total, departments, updatingRequestId }, loading }) => ({
+  ({ [GLOBAL_NAME_SPACE]: { employeeFilter }, [NAME_SPACE]: { data, total, departments, updatingRequestId }, user: { currentUser }, loading }) => ({
     total,
     employeeFilter,
     data,
     departments,
     updatingRequestId,
+    currentUser,
     loading:
       !!loading.effects[`${NAME_SPACE}/fetchAttendanceList`] ||
       !!loading.effects[`${NAME_SPACE}/downloadCSV`] ||

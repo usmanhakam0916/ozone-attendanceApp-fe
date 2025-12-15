@@ -18,7 +18,7 @@ const Model = {
         response = payload;
       } else {
         response = yield request.post('auth/login', {
-          data: { username: payload.username, password: payload.password, deviceType: 'web' },
+          data: { email: payload.username, password: payload.password, deviceType: 'web' },
         });
         if (response && response.access_token) {
           response.rememberMe = payload.rememberMe;

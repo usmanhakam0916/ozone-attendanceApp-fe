@@ -51,7 +51,7 @@ class AvatarDropdown extends React.Component {
 
         <Menu.Item key="logout">
           
-          <LogoutOutlined />
+          <LogoutOutlined style={{ marginRight: 8 }} />
           <span>Logout</span>
           
         </Menu.Item>

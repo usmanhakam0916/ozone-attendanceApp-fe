@@ -8,7 +8,7 @@ const isRequestedStatus = (status) => {
   return status === 'CHECKIN_REQUESTED' || status === 'CHECKOUT_REQUESTED';
 };
 
-export const getColumns = (hasRequestedItems, onAccept, onReject, loadingId) => {
+export const getColumns = (hasRequestedItems, onAccept, onReject, loadingId, isAdmin = false) => {
   const baseColumns = [
     {
       title: 'Employee No',
@@ -70,8 +70,8 @@ export const getColumns = (hasRequestedItems, onAccept, onReject, loadingId) => 
     },
   ];
 
-  // Only add Request Area column if there are items with CHECKIN_REQUESTED or CHECKOUT_REQUESTED status
-  if (hasRequestedItems) {
+  // Only add Request Area column if user is admin and there are items with CHECKIN_REQUESTED or CHECKOUT_REQUESTED status
+  if (isAdmin && hasRequestedItems) {
     baseColumns.push({
       title: 'Request Area',
       key: '8',

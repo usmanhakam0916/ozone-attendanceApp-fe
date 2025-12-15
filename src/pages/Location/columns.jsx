@@ -61,7 +61,15 @@ export const getColumns = ({
         sorter: (a) => getDateFormatterWithoutKey(a),
         key: userRole === 'admin' ? '5' : '4',
       }
-    : { title: '', width: '1%', key: '1' },
+    : { title: '', width: '1%', key: '1' }
+  //   userRole === 'admin'?
+  //   {
+  //   title: 'Lat/Action',
+  //   width: '20%',
+  //   render: (_, object) =>
+  //     `${object?.lat && object?.long ? `${object.lat}, ${object?.long}` : 'N/A'}`,
+  //   key: '5',
+  // }: { title: '', width: '1%', key: '1' },
   // userRole === 'admin'
   //   ? {
   //       title: 'Action',
