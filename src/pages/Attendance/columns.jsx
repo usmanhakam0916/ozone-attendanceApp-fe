@@ -11,18 +11,6 @@ const isRequestedStatus = (status) => {
 export const getColumns = (hasRequestedItems, onAccept, onReject, loadingId, isAdmin = false) => {
   const baseColumns = [
     {
-      title: 'Employee No',
-      render: (_, object) =>
-        `${
-          object?.employee?.authUser?.initialData
-            ? object?.employee?.authUser?.initialData['Employee No']
-            : 'N/A'
-        }`,
-      sorter: (a, b) => getStringSorterWithoutKey(a, b),
-      key: '2',
-      width: '8%',
-    },
-    {
       title: 'Name',
       render: (_, object) =>
         `${
@@ -32,6 +20,18 @@ export const getColumns = (hasRequestedItems, onAccept, onReject, loadingId, isA
         }`,
       sorter: (a, b) => getStringSorterWithoutKey(a, b),
       key: '1',
+    },
+     {
+      title: 'Email',
+      render: (_, object) =>
+        `${
+          object?.employee?.authUser?.email
+            ? object?.employee?.authUser?.email
+            : 'N/A'
+        }`,
+      sorter: (a, b) => getStringSorterWithoutKey(a, b),
+      key: '2',
+      width: '8%',
     },
     {
       title: 'Department',
