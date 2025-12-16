@@ -1,40 +1,39 @@
 /* eslint-disable radix */
 /* eslint-disable no-nested-ternary */
 import {
-  Form,
-  Input,
   Button,
   Card,
-  Select,
-  Row,
-  Col,
-  Tag,
-  Spin,
-  InputNumber,
   Checkbox,
-  Tabs,
-  Table,
-  Tooltip,
+  Col,
+  Form,
+  Input,
+  InputNumber,
   Modal,
+  Row,
+  Select,
+  Spin,
+  Table,
+  Tabs,
+  Tag,
   Typography,
   message,
 } from 'antd';
 import { connect } from 'dva';
-import { useParams, useHistory } from 'umi';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useHistory, useParams } from 'umi';
 
 import useFormMode from '@/hooks/useFormMode';
 import { GLOBAL_NAME_SPACE } from '@/models/constants';
-import { NAME_SPACE, employeeStatusOptions } from '../constants';
 import { PageContainer } from '@ant-design/pro-layout';
+import { NAME_SPACE, employeeStatusOptions } from '../constants';
 
-import styles from './KeystarProfile.less';
-import { getColumns } from '../columns/columns';
-import moment from 'moment';
 import { parseInt } from 'lodash';
+import moment from 'moment';
+import { getColumns } from '../columns/columns';
+import styles from './KeystarProfile.less';
 
-import AttendanceForm from './attendanceForm';
 import AttendanceDetail from './attendanceDetail';
+import AttendanceForm from './attendanceForm';
 
 const { TabPane } = Tabs;
 const { Text } = Typography;
@@ -322,11 +321,13 @@ const KeystarProfile = ({
                         }
                         disabled={!['admin', 'manager']?.includes(userRole)}
                       >
-                        {departments?.map((item) => (
-                          <Option key={item?.id} value={item?.id}>
-                            {item?.name?.toUpperCase()}
-                          </Option>
-                        ))}
+                        {departments
+                          ?.filter((item) => item.isActive)
+                          ?.map((item) => (
+                            <Option key={item?.id} value={item?.id}>
+                              {item?.name?.toUpperCase()}
+                            </Option>
+                          ))}
                       </Select>
                     </Form.Item>
                   </Col>
@@ -473,26 +474,26 @@ const KeystarProfile = ({
               </TabPane>
               <TabPane tab="Attendance History" key="2">
                 <Card
-                  //title={`${employeeData?.almanaUser?.data?.data?.emp_No} ${employeeData?.almanaUser?.data?.data?.emP_Name}`}
-                  // extra={
-                  //   userRole === 'admin' ? (
-                  //     <Tooltip placement="top" title="Create New Attendance">
-                  //       <Button
-                  //         style={{ marginLeft: 28 }}
-                  //         type="primary"
-                  //         disabled={loading}
-                  //         onClick={() => {
-                  //           dispatch({
-                  //             type: `${NAME_SPACE}/setIsShowCheckInOutModal`,
-                  //             payload: true,
-                  //           });
-                  //         }}
-                  //       >
-                  //         Create
-                  //       </Button>
-                  //     </Tooltip>
-                  //   ) : null
-                  // }
+                //title={`${employeeData?.almanaUser?.data?.data?.emp_No} ${employeeData?.almanaUser?.data?.data?.emP_Name}`}
+                // extra={
+                //   userRole === 'admin' ? (
+                //     <Tooltip placement="top" title="Create New Attendance">
+                //       <Button
+                //         style={{ marginLeft: 28 }}
+                //         type="primary"
+                //         disabled={loading}
+                //         onClick={() => {
+                //           dispatch({
+                //             type: `${NAME_SPACE}/setIsShowCheckInOutModal`,
+                //             payload: true,
+                //           });
+                //         }}
+                //       >
+                //         Create
+                //       </Button>
+                //     </Tooltip>
+                //   ) : null
+                // }
                 >
                   <Table
                     size="small"

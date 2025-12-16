@@ -1,9 +1,9 @@
+import { GLOBAL_NAME_SPACE } from '@/models/constants';
 import { Button, Form, Input, Select } from 'antd';
 import { connect } from 'dva';
-import React, { useState, useEffect } from 'react';
-import { NAME_SPACE } from './constants';
+import { useEffect, useState } from 'react';
 import styles from './AttendanceListing.less';
-import { GLOBAL_NAME_SPACE } from '@/models/constants';
+import { NAME_SPACE } from './constants';
 
 const { Option } = Select;
 
@@ -74,7 +74,7 @@ const FilterForm = ({ dispatch, loading, employeeFilter, departments }) => {
             });
           }}
         >
-          {departments?.map((item) => {
+          {departments?.filter((item) => item.isActive)?.map((item) => {
             return (
               <Option key={item?.id} value={item.id}>
                 {item?.name?.toUpperCase()}

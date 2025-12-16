@@ -1,19 +1,18 @@
 /* eslint-disable no-nested-ternary */
-import { connect } from 'dva';
-import React from 'react';
 import {
+  Alert,
   Button,
+  Checkbox,
+  Col,
   Form,
   Input,
-  Row,
-  message,
-  Typography,
   InputNumber,
-  Alert,
-  Col,
+  Row,
   Select,
-  Checkbox,
+  Typography,
+  message,
 } from 'antd';
+import { connect } from 'dva';
 
 import { NAME_SPACE, employeeStatusOptions } from './constants';
 import styles from './EmployeeListing.less';
@@ -289,11 +288,13 @@ const EmployeeForm = (props) => {
                     option.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0
                   }
                 >
-                  {departments?.map((item) => (
-                    <Option key={item?.id} value={item?.id}>
-                      {item?.name?.toUpperCase()}
-                    </Option>
-                  ))}
+                  {departments
+                    ?.filter((item) => item.isActive)
+                    ?.map((item) => (
+                      <Option key={item?.id} value={item?.id}>
+                        {item?.name?.toUpperCase()}
+                      </Option>
+                    ))}
                 </Select>
               </Form.Item>
             </Col>

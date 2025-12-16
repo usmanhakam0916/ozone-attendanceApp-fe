@@ -1,5 +1,6 @@
 import { SearchOutlined } from '@ant-design/icons';
 import { Input, Pagination, Select, Table } from 'antd';
+import { useCallback, useRef, useState } from 'react';
 import styles from './index.less';
 
 const { Option } = Select;
@@ -20,7 +21,26 @@ const OzoneTable = ({
   headerRight,
   rowKey = 'id',
   scroll,
+  debounceDelay = 500,
 }) => {
+  const [searchValue, setSearchValue] = useState('');
+  const debounceRef = useRef(null);
+
+  const handleSearchChange = useCallback((e) => {
+    const value = e.target.value;
+    setSearchValue(value);
+    
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
+    }
+    
+    debounceRef.current = setTimeout(() => {
+      if (onSearch) {
+        onSearch(value);
+      }
+    }, debounceDelay);
+  }, [onSearch, debounceDelay]);
+
   return (
     <div className={styles.ozoneTableWrapper}>
       <div className={styles.pageHeader}>
@@ -40,8 +60,13 @@ const OzoneTable = ({
                   className={styles.searchInput}
                   placeholder={searchPlaceholder}
                   prefix={<SearchOutlined className={styles.searchIcon} />}
-                  onChange={(e) => onSearch(e.target.value)}
+                  onChange={handleSearchChange}
+                  value={searchValue}
                   allowClear
+                  onClear={() => {
+                    setSearchValue('');
+                    if (onSearch) onSearch('');
+                  }}
                 />
               </div>
             )}

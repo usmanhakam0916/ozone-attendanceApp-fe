@@ -59,7 +59,7 @@ const RemovedDeviceTracking = ({
       placeholder: 'Departments',
       allowClear: true,
       showSearch: true,
-      options: departments?.map((item) => ({
+      options: departments?.filter((item) => item.isActive)?.map((item) => ({
         value: item.id,
         label: item.name?.toUpperCase(),
       })) || [],

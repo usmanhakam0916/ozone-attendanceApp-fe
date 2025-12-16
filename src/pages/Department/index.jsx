@@ -1,13 +1,28 @@
+import { PlusOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-layout';
+import { Button, Modal, Spin } from 'antd';
 import { connect } from 'dva';
 import { useEffect, useState } from 'react';
 
 import OzoneTable from '@/components/OzoneTable';
 import { GLOBAL_NAME_SPACE } from '../../models/constants';
+import styles from './BankListing.less';
 import { getColumns } from './columns';
 import { NAME_SPACE } from './constants';
+import DepartmentForm from './DepartmentForm';
 
-const Departments = ({ dispatch, loading, isSearch, departments, totalDepartments, userRole }) => {
+const Departments = ({
+  dispatch,
+  loading,
+  modalLoading,
+  isSearch,
+  departments,
+  totalDepartments,
+  userRole,
+  bankModalVisible,
+  currentPageSize,
+  currentSkip,
+}) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(50);
 
@@ -23,21 +38,7 @@ const Departments = ({ dispatch, loading, isSearch, departments, totalDepartment
     };
   }, [dispatch]);
 
-  const columns = getColumns({ dispatch, userRole });
-
-  // const handleSearch = (value) => {
-  //   if (value) {
-  //     dispatch({
-  //       type: `${NAME_SPACE}/searchDepartments`,
-  //       payload: { name: value },
-  //     });
-  //   } else {
-  //     dispatch({
-  //       type: `${NAME_SPACE}/fetchDepartments`,
-  //       payload: { take: pageSize, skip: 0 },
-  //     });
-  //   }
-  // };
+  const columns = getColumns({ dispatch, userRole, currentPageSize, currentSkip });
 
   const handlePageChange = (page, size) => {
     setCurrentPage(page);
@@ -53,25 +54,26 @@ const Departments = ({ dispatch, loading, isSearch, departments, totalDepartment
     });
   };
 
-  const filters = [
-    {
-      key: 'id',
-      placeholder: 'ID',
-      allowClear: true,
-      options: [],
-      style: { minWidth: 300 },
-    },
-    {
-      key: 'status',
-      placeholder: 'All Status',
-      allowClear: true,
-      options: [
-        { value: 'all', label: 'All Status' },
-        { value: 'active', label: 'Active' },
-        { value: 'inactive', label: 'Inactive' },
-      ],
-    },
-  ];
+  const showModal = () => {
+    dispatch({
+      type: `${NAME_SPACE}/setBankModalVisible`,
+      payload: { visible: true },
+    });
+  };
+
+  const handleCancel = () => {
+    dispatch({
+      type: `${NAME_SPACE}/setBankModalVisible`,
+      payload: { visible: false },
+    });
+  };
+
+  const headerRight =
+    userRole === 'admin' ? (
+      <Button type="primary" icon={<PlusOutlined />} className={styles.createBtn} onClick={showModal}>
+        Create
+      </Button>
+    ) : null;
 
   return (
     <PageContainer header={{ title: null }}>
@@ -85,18 +87,29 @@ const Departments = ({ dispatch, loading, isSearch, departments, totalDepartment
         pageSize={pageSize}
         currentPage={currentPage}
         onPageChange={handlePageChange}
-        // onSearch={handleSearch}
-        // searchPlaceholder="Search Keywords..."
-        // filters={filters}
+        headerRight={headerRight}
         rowKey="id"
       />
+
+      <Modal
+        bodyStyle={{ paddingBottom: 0 }}
+        title="Create new Department"
+        visible={bankModalVisible}
+        onCancel={handleCancel}
+        footer={null}
+        destroyOnClose={true}
+      >
+        <Spin spinning={modalLoading}>
+          <DepartmentForm handleCancel={handleCancel} />
+        </Spin>
+      </Modal>
     </PageContainer>
   );
 };
 
 export default connect(
   ({
-    [NAME_SPACE]: { departments, isSearch, totalDepartments, filter },
+    [NAME_SPACE]: { departments, isSearch, totalDepartments, filter, bankModalVisible, currentPageSize, currentSkip },
     loading,
     [GLOBAL_NAME_SPACE]: { auth },
   }) => ({
@@ -105,8 +118,14 @@ export default connect(
     departments,
     filter,
     totalDepartments,
+    bankModalVisible,
+    currentPageSize,
+    currentSkip,
     loading:
       !!loading.effects[`${NAME_SPACE}/fetchDepartments`] ||
-      !!loading.effects[`${NAME_SPACE}/searchDepartments`],
+      !!loading.effects[`${NAME_SPACE}/searchDepartments`] ||
+      !!loading.effects[`${NAME_SPACE}/updateDepartmentStatus`] ||
+      !!loading.effects[`${NAME_SPACE}/deleteDepartment`],
+    modalLoading: !!loading.effects[`${NAME_SPACE}/createDepartment`],
   }),
 )(Departments);

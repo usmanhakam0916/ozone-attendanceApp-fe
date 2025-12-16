@@ -1,6 +1,5 @@
 import OzoneTable from '@/components/OzoneTable';
 import { GLOBAL_NAME_SPACE } from '@/models/constants';
-import { PlusOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Button, Modal, Spin } from 'antd';
 import { connect } from 'dva';
@@ -151,7 +150,7 @@ const EmployeeListing = (props) => {
       showSearch: true,
       allowClear: true,
       value: employeeFilter?.departmentId,
-      options: departments?.map((item) => ({
+      options: departments?.filter((item) => item.isActive)?.map((item) => ({
         value: item.id,
         label: item.name?.toUpperCase(),
       })) || [],

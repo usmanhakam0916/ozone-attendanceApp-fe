@@ -111,7 +111,7 @@ const AttendanceListing = (props) => {
       placeholder: 'Departments',
       allowClear: true,
       showSearch: true,
-      options: departments?.map((item) => ({
+      options: departments?.filter((item) => item.isActive)?.map((item) => ({
         value: item.id,
         label: item.name?.toUpperCase(),
       })) || [],
@@ -133,7 +133,7 @@ const AttendanceListing = (props) => {
       type="primary"
       icon={<DownloadOutlined />}
       className={styles.exportBtn}
-      disabled={loading}
+      disabled={loading || total === 0}
       onClick={downloadExcel}
     >
       Export Excel File

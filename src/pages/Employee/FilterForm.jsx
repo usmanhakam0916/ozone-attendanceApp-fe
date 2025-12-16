@@ -104,7 +104,7 @@ const FilterForm = ({ dispatch, loading, employeeFilter, departments }) => {
               });
             }}
           >
-            {departments?.map((item) => {
+            {departments?.filter((item) => item.isActive)?.map((item) => {
               return (
                 <Option key={item?.id} value={item.id}>
                   {item?.name?.toUpperCase()}

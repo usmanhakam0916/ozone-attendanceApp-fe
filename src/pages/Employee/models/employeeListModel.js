@@ -98,6 +98,7 @@ const employeeListing = {
           departmentId ? `&departmentId=${departmentId}` : ''
         }`,
       );
+     // debugger;
       const data = response.result.map((item) => {
         const newItem = { ...item, employee: JSON.parse(item.authUser.initialData) };
         return newItem;
@@ -147,9 +148,10 @@ const employeeListing = {
       { put },
     ) {
       try {
-        const url = `employees/20/0?deviceType=${deviceType}${id ? `&badgeNo=${id}` : ''}${
+        const url = `employees/20/0?deviceType=${deviceType}${id ? `&name=${id}` : ''}${
           departmentId ? `&departmentId=${departmentId}` : ''
         }`;
+        //debugger;
         const response = yield request.get(url);
         if (response.status !== 404) {
           const data = response.result.map((item) => {
