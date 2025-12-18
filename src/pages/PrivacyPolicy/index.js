@@ -62,6 +62,17 @@ const PrivacyPolicy = () => {
             partners of Ozone Clinics.
           </Paragraph>
 
+          <Title level={3}>Delete Account</Title>
+
+          <Paragraph>
+            Users have the right to request deletion of their account and personal data. Accounts
+            are created when a user signs up and can be accessed via login. However, for management
+            and security purposes, Ozone Clinics provides an admin panel that allows administrators
+            to delete user accounts if necessary. This ensures proper management of the platform and
+            protection of user data. If you wish to request deletion of your account, please contact
+            us through the support channels provided in the app.
+          </Paragraph>
+
           <Paragraph>
             Third-party ad servers or ad networks uses technologies like cookies, JavaScript, or Web
             Beacons that are used in their respective advertisements and links that appear on Ozone
