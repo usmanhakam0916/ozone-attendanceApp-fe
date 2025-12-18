@@ -53,6 +53,11 @@ export default [
         ],
       },
       {
+        name: 'PrivacyPolicy',
+        path: '/privacyPolicy',
+        component: './PrivacyPolicy',
+      },
+      {
         name: 'GetAppleLink',
         path: '/get-apple-link',
         component: './GetLink',
