@@ -154,6 +154,19 @@ const KeystarProfile = ({
   useEffect(() => {
     setTabNumber(history.location.query.tab);
     if (isEditMode && employeeData) {
+      // Parse initialData from authUser if it's a string
+      let parsedInitialData = {};
+      try {
+        const initialDataStr = employeeData?.user?.authUser?.initialData;
+        if (typeof initialDataStr === 'string') {
+          parsedInitialData = JSON.parse(initialDataStr);
+        } else if (initialDataStr) {
+          parsedInitialData = initialDataStr;
+        }
+      } catch (e) {
+        console.error('Failed to parse initialData', e);
+      }
+
       form.setFieldsValue({
         ...employeeData,
         groupPolicy: employeeData?.user?.group?.id || null,
@@ -170,6 +183,22 @@ const KeystarProfile = ({
         age: age(employeeData?.almanaUser?.data?.data?.date_of_Birth),
         employeestatus: employeeData?.user?.authUser?.status,
         departmentId: employeeData?.user?.__department__?.id,
+        // Set FirstName and LastName from parsed initialData
+        almanaUser: {
+          ...employeeData?.almanaUser,
+          data: {
+            ...employeeData?.almanaUser?.data,
+            data: {
+              ...employeeData?.almanaUser?.data?.data,
+              FirstName:
+                parsedInitialData?.FirstName ||
+                employeeData?.almanaUser?.data?.data?.FirstName ||
+                '',
+              LastName:
+                parsedInitialData?.LastName || employeeData?.almanaUser?.data?.data?.LastName || '',
+            },
+          },
+        },
       });
     }
     return () => {
@@ -185,26 +214,28 @@ const KeystarProfile = ({
             (formValues.qrCodeCheckInAllowed || formValues?.faceCheckInAllowed)) ||
           ['supervisor', 'manager', 'hr-manager']?.includes(userRole)
         ) {
+          const payload = {
+            attendanceRadius: formValues.attendanceRadius,
+            attendanceType: formValues.attendanceType,
+            groupId: formValues.groupPolicy,
+            isMac: macAddress.isMac,
+            macAddress: macAddress.isMac ? macAddress.address : macAddress.macAddress,
+            multiDevice: formValues.multiDevice,
+            locations: formValues.locations,
+            firstName: formValues.almanaUser.data.data.FirstName,
+            lastName: formValues.almanaUser.data.data.LastName,
+            designation: formValues.almanaUser.data.data.position_Name,
+            departmentId: formValues.departmentId,
+            authUser: {
+              faceCheckInAllowed: formValues?.faceCheckInAllowed,
+              qrCodeCheckInAllowed: formValues?.qrCodeCheckInAllowed,
+              status: formValues?.employeestatus,
+            },
+          };
           dispatch({
             type: `${NAME_SPACE}/updateEmployee`,
             payload: {
-              data: {
-                attendanceRadius: formValues.attendanceRadius,
-                attendanceType: formValues.attendanceType,
-                groupId: formValues.groupPolicy,
-                isMac: macAddress.isMac,
-                macAddress: macAddress.isMac ? macAddress.address : macAddress.macAddress,
-                multiDevice: formValues.multiDevice,
-                locations: formValues.locations,
-                employeeName: formValues.almanaUser.data.data.emP_Name,
-                designation: formValues.almanaUser.data.data.position_Name,
-                departmentId: formValues.departmentId,
-                authUser: {
-                  faceCheckInAllowed: formValues?.faceCheckInAllowed,
-                  qrCodeCheckInAllowed: formValues?.qrCodeCheckInAllowed,
-                  status: formValues?.employeestatus,
-                },
-              },
+              data: payload,
               id: params.id,
               title: '',
             },
@@ -243,16 +274,23 @@ const KeystarProfile = ({
                   </Col>
                   <Col span={8}>
                     <Form.Item
-                      label="Employee Name"
-                      name={['almanaUser', 'data', 'data', 'emP_Name']}
+                      label="First Name"
+                      name={['almanaUser', 'data', 'data', 'FirstName']}
                     >
                       <Input
-                        placeholder="Employee Name"
+                        placeholder="First Name"
                         disabled={!['admin', 'manager']?.includes(userRole)}
                       />
                     </Form.Item>
                   </Col>
-                  <Col span={8} />
+                  <Col span={8}>
+                    <Form.Item label="Last Name" name={['almanaUser', 'data', 'data', 'LastName']}>
+                      <Input
+                        placeholder="Last Name"
+                        disabled={!['admin', 'manager']?.includes(userRole)}
+                      />
+                    </Form.Item>
+                  </Col>
                   <Col span={8}>
                     <Form.Item
                       label="Designation"

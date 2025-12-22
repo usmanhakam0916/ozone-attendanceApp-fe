@@ -1,22 +1,28 @@
 import { getDateFormatterWithoutKey, getStringSorterWithoutKey } from '@/utils/sorters';
 import { formatDate } from '@/utils/utils';
-import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
-import { Button, Space } from 'antd';
+import { EyeOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
+import { UpdateRequestStatus } from './constants';
 
 // Helper to check if status is a request type
 const isRequestedStatus = (status) => {
-  return status === 'CHECKIN_REQUESTED' || status === 'CHECKOUT_REQUESTED';
+  return status === UpdateRequestStatus.CHECKIN_REQUESTED || 
+         status === UpdateRequestStatus.CHECKOUT_REQUESTED;
 };
 
-export const getColumns = (hasRequestedItems, onAccept, onReject, loadingId, isAdmin = false) => {
+export const getColumns = (hasRequestedItems, onViewRequest, isAdmin = false) => {
   const baseColumns = [
     {
       title: 'Name',
       render: (_, object) =>
         `${
           object?.employee?.authUser?.initialData
-            ? object?.employee?.authUser?.initialData.Name
+            ? object?.employee?.authUser?.initialData.FirstName
             : 'N/A'
+        } ${
+          object?.employee?.authUser?.initialData
+            ? object?.employee?.authUser?.initialData.LastName
+            : ''
         }`,
       sorter: (a, b) => getStringSorterWithoutKey(a, b),
       key: '1',
@@ -75,31 +81,18 @@ export const getColumns = (hasRequestedItems, onAccept, onReject, loadingId, isA
     baseColumns.push({
       title: 'Request Area',
       key: '8',
-      width: '15%',
+      width: '12%',
       render: (_, object) => {
         if (isRequestedStatus(object.updateRequestStatus)) {
-          const isLoading = loadingId === object.id;
           return (
-            <Space>
-              <Button
-                type="primary"
-                size="small"
-                icon={<CheckOutlined />}
-                loading={isLoading}
-                onClick={() => onAccept(object.id, object.updateRequestStatus)}
-              >
-                Accept
-              </Button>
-              <Button
-                danger
-                size="small"
-                icon={<CloseOutlined />}
-                loading={isLoading}
-                onClick={() => onReject(object.id)}
-              >
-                Reject
-              </Button>
-            </Space>
+            <Button
+              type="primary"
+              size="small"
+              icon={<EyeOutlined />}
+              onClick={() => onViewRequest(object)}
+            >
+              View Request
+            </Button>
           );
         }
         return null;

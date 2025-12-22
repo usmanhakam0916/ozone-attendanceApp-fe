@@ -134,6 +134,49 @@ const adminListing = {
         yield put({ type: 'setUpdatingRequestId', payload: null });
       }
     },
+    *processUpdateRequest(
+      {
+        payload: {
+          attendanceId,
+          attendenceTimeType,
+          hour,
+          minute,
+          comment,
+          approved,
+          take,
+          skip,
+          badgeNo,
+          departmentId,
+        },
+      },
+      { put },
+    ) {
+      yield put({ type: 'setUpdatingRequestId', payload: attendanceId });
+      try {
+        const response = yield request.patch(`attendances/process/update/attendence/request`, {
+          data: {
+            attendanceId,
+            attendenceTimeType,
+            hour,
+            minute,
+            comment,
+            approved,
+          },
+        });
+        if (response) {
+          message.success(`Request ${approved ? 'accepted' : 'rejected'} successfully`);
+          // Refresh the attendance list after updating
+          yield put({
+            type: 'fetchAttendanceList',
+            payload: { take, skip, badgeNo, departmentId },
+          });
+        }
+      } catch (error) {
+        message.error('Failed to process request');
+      } finally {
+        yield put({ type: 'setUpdatingRequestId', payload: null });
+      }
+    },
   },
   reducers: {
     fetchDepartmentsSuccess(state, action) {

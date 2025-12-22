@@ -55,7 +55,7 @@ export const getColumns = ({ dispatch, userRole }) =>
     {
       title: 'Name',
       width: '12%',
-      render: (_, Object) => `${Object?.employee ? Object?.employee?.Name : 'N/A'}`,
+      render: (_, Object) => `${Object?.employee ? Object?.employee?.FirstName : 'N/A'} ${Object?.employee ? Object?.employee?.LastName : ''}`,
       sorter: (a) => getStringSorterWithoutKey(a),
       key: '2',
     },

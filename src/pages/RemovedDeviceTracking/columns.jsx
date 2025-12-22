@@ -15,7 +15,7 @@ export const getColumns = () => [
   {
     title: 'Name',
     render: (_, object) =>
-      `${object?.__user__?.initialData ? JSON.parse(object?.__user__?.initialData)?.Name : 'N/A'}`,
+      `${object?.__user__?.initialData ? JSON.parse(object?.__user__?.initialData)?.FirstName : 'N/A'} ${object?.__user__?.initialData ? JSON.parse(object?.__user__?.initialData)?.LastName : ''}`,
     key: '1',
   },
   {

@@ -7,13 +7,16 @@ import { connect } from 'dva';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import styles from './AttendanceListing.less';
 import { getColumns } from './columns';
-import { NAME_SPACE } from './constants';
+import { NAME_SPACE, UpdateRequestStatus } from './constants';
+import RequestModal from './RequestModal';
 
 const AttendanceListing = (props) => {
   const { dispatch, loading, data, total, employeeFilter, departments, updatingRequestId, currentUser } = props;
   const isAdmin = currentUser?.group === 'admin';
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(50);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedRecord, setSelectedRecord] = useState(null);
 
   useEffect(() => {
     dispatch({
@@ -37,51 +40,38 @@ const AttendanceListing = (props) => {
   // Check if any item has CHECKIN_REQUESTED or CHECKOUT_REQUESTED status
   const hasRequestedItems = useMemo(() => {
     return data?.some((item) => 
-      item.updateRequestStatus === 'CHECKIN_REQUESTED' || 
-      item.updateRequestStatus === 'CHECKOUT_REQUESTED'
+      item.updateRequestStatus === UpdateRequestStatus.CHECKIN_REQUESTED || 
+      item.updateRequestStatus === UpdateRequestStatus.CHECKOUT_REQUESTED
     );
   }, [data]);
 
-  // Map request status to approved status
-  const getApprovedStatus = (requestStatus) => {
-    if (requestStatus === 'CHECKIN_REQUESTED') {
-      return 'CHECKIN_APPROVED';
-    }
-    if (requestStatus === 'CHECKOUT_REQUESTED') {
-      return 'CHECKOUT_APPROVED';
-    }
-    return 'APPROVED';
-  };
+  const handleViewRequest = useCallback((record) => {
+    setSelectedRecord(record);
+    setModalVisible(true);
+  }, []);
 
-  const handleAccept = useCallback((attendanceId, requestStatus) => {
+  const handleCloseModal = useCallback(() => {
+    setModalVisible(false);
+    setSelectedRecord(null);
+  }, []);
+
+  const handleProcessRequest = useCallback((payload) => {
     dispatch({
-      type: `${NAME_SPACE}/updateRequestStatus`,
+      type: `${NAME_SPACE}/processUpdateRequest`,
       payload: {
-        attendanceId,
-        status: getApprovedStatus(requestStatus),
+        ...payload,
         take: pageSize,
         skip: (currentPage - 1) * pageSize,
         ...employeeFilter,
       },
+    }).then(() => {
+      handleCloseModal();
     });
-  }, [dispatch, pageSize, currentPage, employeeFilter]);
-
-  const handleReject = useCallback((attendanceId) => {
-    dispatch({
-      type: `${NAME_SPACE}/updateRequestStatus`,
-      payload: {
-        attendanceId,
-        status: 'REJECTED',
-        take: pageSize,
-        skip: (currentPage - 1) * pageSize,
-        ...employeeFilter,
-      },
-    });
-  }, [dispatch, pageSize, currentPage, employeeFilter]);
+  }, [dispatch, pageSize, currentPage, employeeFilter, handleCloseModal]);
 
   const columns = useMemo(() => {
-    return getColumns(hasRequestedItems, handleAccept, handleReject, updatingRequestId, isAdmin);
-  }, [hasRequestedItems, handleAccept, handleReject, updatingRequestId, isAdmin]);
+    return getColumns(hasRequestedItems, handleViewRequest, isAdmin);
+  }, [hasRequestedItems, handleViewRequest, isAdmin]);
 
   const handleSearch = (value) => {
     dispatch({
@@ -157,6 +147,14 @@ const AttendanceListing = (props) => {
         filters={filters}
         headerRight={headerRight}
         rowKey="id"
+      />
+      <RequestModal
+        visible={modalVisible}
+        onClose={handleCloseModal}
+        record={selectedRecord}
+        onAccept={handleProcessRequest}
+        onReject={handleProcessRequest}
+        loading={!!updatingRequestId}
       />
     </PageContainer>
   );

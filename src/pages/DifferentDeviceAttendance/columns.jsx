@@ -16,8 +16,12 @@ export const getColumns = () => [
     render: (_, object) =>
       `${
         object?.employee?.authUser?.initialData
-          ? JSON.parse(object?.employee?.authUser?.initialData)?.Name
+          ? JSON.parse(object?.employee?.authUser?.initialData)?.FirstName
           : 'N/A'
+      } ${
+        object?.employee?.authUser?.initialData
+          ? JSON.parse(object?.employee?.authUser?.initialData)?.LastName
+          : ''
       }`,
     key: '1',
   },
