@@ -224,7 +224,7 @@ const KeystarProfile = ({
             locations: formValues.locations,
             firstName: formValues.almanaUser.data.data.FirstName,
             lastName: formValues.almanaUser.data.data.LastName,
-            designation: formValues.almanaUser.data.data.position_Name,
+            designation: formValues.ozoneUser.data.data.position_Name,
             departmentId: formValues.departmentId,
             authUser: {
               faceCheckInAllowed: formValues?.faceCheckInAllowed,
@@ -294,7 +294,7 @@ const KeystarProfile = ({
                   <Col span={8}>
                     <Form.Item
                       label="Designation"
-                      name={['almanaUser', 'data', 'data', 'position_Name']}
+                      name={['ozoneUser', 'data', 'data', 'position_Name']}
                     >
                       <Input
                         placeholder="Designation"
