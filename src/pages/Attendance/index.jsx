@@ -144,7 +144,7 @@ const AttendanceListing = (props) => {
         onPageChange={handlePageChange}
         onSearch={handleSearch}
         searchPlaceholder="Search Keywords..."
-        filters={filters}
+        // filters={filters}
         headerRight={headerRight}
         rowKey="id"
       />

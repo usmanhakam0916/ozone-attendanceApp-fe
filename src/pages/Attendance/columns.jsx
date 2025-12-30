@@ -39,17 +39,7 @@ export const getColumns = (hasRequestedItems, onViewRequest, isAdmin = false) =>
       key: '2',
       width: '8%',
     },
-    {
-      title: 'Department',
-      render: (_, object) =>
-        `${
-          object.employee?.authUser?.initialData?.Department
-            ? object.employee?.authUser?.initialData?.Department
-            : 'N/A'
-        }`,
-      sorter: (a) => getStringSorterWithoutKey(a),
-      key: '3',
-    },
+    
     {
       title: 'Check-in Time',
       render: (_, object) => `${object.checkInTime ? formatDate(object.checkInTime) : 'N/A'}`,
