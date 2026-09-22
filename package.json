@@ -99,6 +99,9 @@
       "dva-immer": {
         "immer": "9.0.21"
       }
+    },
+    "@umijs/babel-preset-umi": {
+      "@babel/runtime": "7.26.10"
     }
   },
   "engines": {
