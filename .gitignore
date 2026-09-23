@@ -8,7 +8,6 @@ _roadhog-api-doc
 
 # production
 /dist
-/.vscode
 
 # misc
 .DS_Store
@@ -18,7 +17,6 @@ yarn-error.log
 /coverage
 .idea
 *bak
-.vscode
 
 # visual studio code
 .history
@@ -39,8 +37,6 @@ build
 config.bat
 
 # env
-.env
-.env.local
 .env.*.local
 
 # claude code worktrees / local agent state

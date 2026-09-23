@@ -23,6 +23,7 @@
     "start:pre": "cross-env NODE_OPTIONS=--openssl-legacy-provider REACT_APP_ENV=pre UMI_ENV=dev umi dev",
     "start:test": "cross-env NODE_OPTIONS=--openssl-legacy-provider REACT_APP_ENV=test MOCK=none UMI_ENV=dev umi dev",
     "test": "umi test",
+    "test:component": "umi test ./src/components",
     "tsc": "tsc --noEmit"
   },
   "browserslist": [
