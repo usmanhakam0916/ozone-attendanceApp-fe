@@ -42,3 +42,7 @@ config.bat
 .env
 .env.local
 .env.*.local
+
+# claude code worktrees / local agent state
+.claude/worktrees/
+.claude/settings.local.json
