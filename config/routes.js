@@ -39,11 +39,11 @@ export const managerRoutes = [
 export default [
   {
     path: '/',
-    component: '../layouts/BlankLayout',
+    component: '@/layouts/BlankLayout',
     routes: [
       {
         path: '/user',
-        component: '../layouts/UserLayout',
+        component: '@/layouts/UserLayout',
         routes: [
           {
             name: 'login',
@@ -64,11 +64,11 @@ export default [
       },
       {
         path: '/',
-        component: '../layouts/SecurityLayout',
+        component: '@/layouts/SecurityLayout',
         routes: [
           {
             path: '/',
-            component: '../layouts/BasicLayout',
+            component: '@/layouts/BasicLayout',
             authority: ['admin', 'user', 'public'],
             routes: [
               {

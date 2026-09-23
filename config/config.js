@@ -3,14 +3,23 @@ import { defineConfig } from 'umi';
 import defaultSettings from './defaultSettings';
 import proxy from './proxy';
 import routes from './routes';
+
 const { REACT_APP_ENV } = process.env;
+
 export default defineConfig({
   hash: true,
+  // umi4: avoids duplicated esbuild helper names across chunks
+  esbuildMinifyIIFE: true,
+  // umi 4 moves antd / dva / locale into @umijs/plugins
+  plugins: [
+    '@umijs/plugins/dist/antd',
+    '@umijs/plugins/dist/dva',
+    '@umijs/plugins/dist/locale',
+    '@umijs/plugins/dist/initial-state',
+    '@umijs/plugins/dist/model',
+  ],
   antd: {},
-  dva: {
-    hmr: true,
-    immer: true,
-  },
+  dva: {},
   history: {
     type: 'browser',
   },
@@ -20,12 +29,6 @@ export default defineConfig({
     antd: true,
     // default true, when it is true, will use `navigator.language` overwrite default
     baseNavigator: true,
-  },
-  dynamicImport: {
-    loading: '@/components/PageLoading/index',
-  },
-  targets: {
-    ie: 11,
   },
   // umi routes: https://umijs.org/docs/routing
   routes,
