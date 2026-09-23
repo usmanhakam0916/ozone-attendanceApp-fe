@@ -1,7 +1,6 @@
 import { message } from 'antd';
 import moment from 'moment';
 import numeral from 'numeral';
-import { parse } from 'querystring';
 /* eslint no-useless-escape:0 import/prefer-default-export:0 */
 
 moment.locale('en-US');
@@ -25,8 +24,6 @@ export const isAntDesignProOrDev = () => {
 
   return isAntDesignPro();
 };
-
-export const getPageQuery = () => parse(window.location.href.split('?')[1]);
 
 export function fileCheck(file) {
   const fileExtension = file.type;

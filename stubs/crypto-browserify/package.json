@@ -1,0 +1,8 @@
+{
+  "name": "crypto-browserify",
+  "version": "3.12.1",
+  "description": "Deliberate no-op stub. This project does not polyfill Node's crypto in browser builds.",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true
+}

@@ -102,7 +102,8 @@
     "postcss-safe-parser": "^6.0.0",
     "autoprefixer": "^10.4.20",
     "postcss-preset-env": "^7.8.3",
-    "query-string": "^4.3.4"
+    "query-string": "^4.3.4",
+    "crypto-browserify": "file:./stubs/crypto-browserify"
   },
   "engines": {
     "node": ">=18.0.0"
