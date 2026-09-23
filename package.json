@@ -87,7 +87,10 @@
     },
     "@umijs/babel-preset-umi": {
       "@babel/runtime": "7.26.10"
-    }
+    },
+    "isomorphic-fetch": "3.0.0",
+    "braces": "^3.0.3",
+    "micromatch": "^4.0.8"
   },
   "engines": {
     "node": ">=14.0.0"
