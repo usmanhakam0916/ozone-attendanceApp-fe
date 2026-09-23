@@ -4,9 +4,9 @@
   "private": true,
   "description": "An out-of-box UI solution for enterprise applications",
   "scripts": {
-    "analyze": "cross-env ANALYZE=1 umi build",
-    "prebuild": "node -e \"var m=+process.versions.node.split('.')[0];if(m!==16){console.error('\\n[ozone] This project builds only on Node 16.x (umi 3 / webpack 4 requires the legacy OpenSSL provider).\\nCurrent version: '+process.versions.node+'\\nOn Node 17+ the build fails with ERR_OSSL_EVP_UNSUPPORTED.\\n');process.exit(1)}\"",
-    "build": "umi build",
+    "analyze": "cross-env NODE_OPTIONS=--openssl-legacy-provider ANALYZE=1 umi build",
+    "prebuild": "node -e \"var m=+process.versions.node.split('.')[0];if(m<18){console.error('\\n[ozone] This project requires Node 18 or newer (Node 16 is end-of-life).\\nCurrent version: '+process.versions.node+'\\nSee .nvmrc - run: nvm use\\n');process.exit(1)}\"",
+    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider umi build",
     "dev": "npm run start:dev",
     "start": "node server.js",
     "postinstall": "umi g tmp",
@@ -17,11 +17,11 @@
     "lint:prettier": "prettier --check \"src/**/*\" --end-of-line auto",
     "lint:style": "stylelint --fix \"src/**/*.less\" --syntax less",
     "prettier": "prettier -c --write \"src/**/*\"",
-    "start:dev": "cross-env REACT_APP_ENV=dev MOCK=none UMI_ENV=dev umi dev",
-    "start:no-mock": "cross-env MOCK=none UMI_ENV=dev umi dev",
-    "start:no-ui": "cross-env UMI_UI=none UMI_ENV=dev umi dev",
-    "start:pre": "cross-env REACT_APP_ENV=pre UMI_ENV=dev umi dev",
-    "start:test": "cross-env REACT_APP_ENV=test MOCK=none UMI_ENV=dev umi dev",
+    "start:dev": "cross-env NODE_OPTIONS=--openssl-legacy-provider REACT_APP_ENV=dev MOCK=none UMI_ENV=dev umi dev",
+    "start:no-mock": "cross-env NODE_OPTIONS=--openssl-legacy-provider MOCK=none UMI_ENV=dev umi dev",
+    "start:no-ui": "cross-env NODE_OPTIONS=--openssl-legacy-provider UMI_UI=none UMI_ENV=dev umi dev",
+    "start:pre": "cross-env NODE_OPTIONS=--openssl-legacy-provider REACT_APP_ENV=pre UMI_ENV=dev umi dev",
+    "start:test": "cross-env NODE_OPTIONS=--openssl-legacy-provider REACT_APP_ENV=test MOCK=none UMI_ENV=dev umi dev",
     "test": "umi test",
     "tsc": "tsc --noEmit"
   },
@@ -100,7 +100,7 @@
     "@babel/core": "^7.29.7"
   },
   "engines": {
-    "node": ">=16.0.0 <17.0.0"
+    "node": ">=18.0.0"
   },
   "checkFiles": [
     "src/**/*.js*",
