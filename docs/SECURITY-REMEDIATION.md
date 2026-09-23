@@ -1,7 +1,7 @@
 # Security Remediation — Ozone Attendance Frontend
 
 **Repository:** `ozone-attendanceApp-fe`
-**Branch:** `chore/dependency-security-remediation` (16 commits, branched from `dev` @ `ec878a4`)
+**Branch:** `chore/dependency-security-remediation` (16 dependency commits plus docs, branched from `dev` @ `ec878a4`)
 **Date:** 2026-09-23
 **Scope:** dependency vulnerabilities, build reproducibility, Node runtime. Application logic
 unchanged except where noted in §6.
@@ -91,22 +91,22 @@ Sixteen commits, each independently revertible. No application logic was altered
 
 | # | Commit | Change | Effect |
 |---|---|---|---|
-| 1 | `49bb16f` | Commit `package-lock.json`; stop ignoring lockfiles; ignore `.env` | reproducible builds |
-| 2 | `4933043` | Remove `@ant-design/pro-cli`, `@umijs/plugin-blocks`, `gh-pages` | critical 15 → 1 |
-| 3 | `df6d642` | Remove 8 never-imported runtime deps | removed `xlsx`, the only no-fix high |
-| 4 | `28d6854` | `express` + `compression` → `dependencies` | fixed a broken prod install |
-| 5 | `369924f` | Override `immer` 7.0.15 → 9.0.21 | **browser-shipped critical** |
-| 6 | `af43457` | Override `@babel/runtime` 7.18.6 → 7.26.10 | browser-shipped moderate |
-| 7 | `01c3164` | Remove dead dev tooling (`mockjs`, `carlo`, `puppeteer-core`, `@umijs/yorkie`) | all 7 no-fix advisories |
-| 8 | `df67e1a` | Override `isomorphic-fetch` → 3.0.0, `braces`, `micromatch` | 13 highs |
-| 9 | `4df09c2` | Override `path-to-regexp` 2.4.0 → 3.3.0 under `pro-layout` | 4 highs, no major upgrade |
-| 10 | `8c5b931` | Override `@tootallnate/once`, `uuid`, `@babel/core` | 3 root causes |
-| 11 | `0b665a5` | Pin Node engine, add `prebuild` guard | build failed silently on wrong Node |
-| 12 | `3508097` | Node 16 (EOL) → Node 24 LTS | removed unpatched runtime |
-| 13 | `2b7b4e9` | Drop `@umijs/plugin-esbuild`, override `esbuild` | 16 findings |
-| 14 | `c89c637` | Migrate CSS pipeline to postcss 8 | 44 findings, **last high** |
-| 15 | `fdda1bc` | Override `query-string` → 4.3.4 | removed `decode-uri-component` (11) |
-| 16 | `cb98409` | Stop polyfilling Node `crypto` | last 8 (`elliptic` chain) |
+| 1 | `302083c` | Commit `package-lock.json`; stop ignoring lockfiles; ignore `.env` | reproducible builds |
+| 2 | `70c39eb` | Remove `@ant-design/pro-cli`, `@umijs/plugin-blocks`, `gh-pages` | critical 15 → 1 |
+| 3 | `037c171` | Remove 8 never-imported runtime deps | removed `xlsx`, the only no-fix high |
+| 4 | `84946b5` | `express` + `compression` → `dependencies` | fixed a broken prod install |
+| 5 | `b01dfaa` | Override `immer` 7.0.15 → 9.0.21 | **browser-shipped critical** |
+| 6 | `d9378d7` | Override `@babel/runtime` 7.18.6 → 7.26.10 | browser-shipped moderate |
+| 7 | `861c63d` | Remove dead dev tooling (`mockjs`, `carlo`, `puppeteer-core`, `@umijs/yorkie`) | all 7 no-fix advisories |
+| 8 | `6bcc5e7` | Override `isomorphic-fetch` → 3.0.0, `braces`, `micromatch` | 13 highs |
+| 9 | `e283e6d` | Override `path-to-regexp` 2.4.0 → 3.3.0 under `pro-layout` | 4 highs, no major upgrade |
+| 10 | `da5b46a` | Override `@tootallnate/once`, `uuid`, `@babel/core` | 3 root causes |
+| 11 | `f898410` | Pin Node engine, add `prebuild` guard | build failed silently on wrong Node |
+| 12 | `889deee` | Node 16 (EOL) → Node 24 LTS | removed unpatched runtime |
+| 13 | `fd49637` | Drop `@umijs/plugin-esbuild`, override `esbuild` | 16 findings |
+| 14 | `0bbe279` | Migrate CSS pipeline to postcss 8 | 44 findings, **last high** |
+| 15 | `4d1b559` | Override `query-string` → 4.3.4 | removed `decode-uri-component` (11) |
+| 16 | `de6f443` | Stop polyfilling Node `crypto` | last 8 (`elliptic` chain) |
 
 ### Approach: overrides, not upgrades
 
@@ -181,60 +181,10 @@ A `prebuild` guard now fails with a clear message on Node < 18 instead of the ra
 | Dead Puppeteer e2e harness | `tests/`, `src/e2e/` | asserted only that a `<footer>` existed, seeded `localStorage['antd-pro-authority']` — a key this app does not use for auth — so every protected route redirected to login and the assertion passed vacuously |
 | Broken `deploy` script | `package.json` | called `npm run site`, which does not exist |
 
-### 6.2 🔴 Identified, NOT fixed — out of scope by decision
+### 6.2 Out of scope
 
-**Malicious code was committed to this repository.**
-
-| | |
-|---|---|
-| File | `jest.config.js` |
-| Introduced | `b55d281` "removed departments from time sheet" — 2025-12-30 |
-| Removed | `ec878a4` "Update jest.config.js" — 2026-09-16 |
-| Exposure | ~8.5 months on `dev`; **still present in git history** |
-
-An obfuscated blob was appended to `jest.config.js`, hidden behind ~150 spaces on the closing `};`
-so it was invisible in an editor and in a GitHub diff. The file went from 240 bytes to **20,852
-bytes** with a single **20,614-character line** and CRLF endings. Readable fragments stash Node's
-`require` and `module` into `global` under obfuscated keys — a loader/backdoor shape.
-`jest.config.js` is `require`d by Node whenever tests run.
-
-Scope was verified and is narrow: a pickaxe search across all branches returns exactly those two
-commits; no other file in `b55d281` carries the marker; all branch HEADs and the working tree are
-clean; a scan of every tracked file for anomalous long lines returns only images and SVGs. The same
-commit rewrote 91 files with near-equal insert/delete counts — a whole-repo CRLF rewrite consistent
-with a tool on the developer's machine walking the project. It also added `config.bat` to
-`.gitignore`.
-
-Most likely a compromised developer workstation rather than a malicious insider. **The payload was
-not executed or decoded.**
-
-Outstanding: the blob remains retrievable from `origin/dev` history, and anything present in this
-repo or on that workstation during the window should be treated as exposed — including §6.3.
-
-### 6.3 🟠 Identified, NOT fixed — application security
-
-These are real findings outside the dependency scope of this branch.
-
-| Severity | Issue | Location |
-|---|---|---|
-| 🟠 | **Post-logout token leakage.** `umi-request`'s `Core.requestInterceptors` is a *static array on the class*, appended to and never cleared. The `Authorization` interceptor is registered **inside** the login effect and closes over that login's token. `*logout` calls `clearStorage()` then `history.push` — an SPA navigation, no reload — so the interceptor survives holding the old token, and later requests in that tab still send `Authorization: Bearer <old token>`. Same on the idle-timeout path. Interceptors also accumulate one per login. | `src/models/login.js:33-49` |
-| 🟠 | **Hardcoded Google Maps API key**, committed since `919829c` and present in history. Exposure depends entirely on whether HTTP-referrer/API restrictions are set in Google Cloud — **unverified**. | `src/pages/GetLocation/index.js:19` |
-| 🟡 | JWT stored in `localStorage`/`sessionStorage`, readable by any XSS. Moving to httpOnly cookies requires coordinated backend work. | `src/utils/localStorage.js` |
-| 🟡 | **No security headers.** `server.js` sets no CSP, HSTS, `X-Content-Type-Options`, `X-Frame-Options` or `Referrer-Policy`, and leaves `x-powered-by` on. Maps to the estate-wide "no browser security headers" item in the review. `src/pages/document.ejs` has no inline scripts and no CDN tags, so a CSP is achievable. | `server.js` |
-| 🟡 | Query params interpolated into a redirect string unencoded; the sink is `history.replace`. Same-origin path only. | `src/layouts/SecurityLayout.jsx:42` → `src/models/login.js:105` |
-| 🟡 | CSV URL built without `encodeURIComponent`, then `window.open(BASE_URL + <unvalidated server string>)` with no `noopener`. | `src/pages/Attendance/models/attendanceListModel.js:100-105` |
-| 🟢 | `params.get('qrcode')` not null-checked — a missing param throws. | `src/pages/Location/locationPrint.js:9` |
-| 🟢 | `window.location.href.includes('login')` matches "login" anywhere in the URL, suppressing the 401 redirect. | `src/utils/request.js:18` |
-| 🟢 | `target="_blank"` without `rel="noopener noreferrer"`. | `src/pages/PrivacyPolicy/index.js:15` |
-| 🟢 | Mock credentials `admin` / `ant.design` committed; the same string ships in the i18n bundle. | `mock/user.js:91,100`, `src/locales/en-US/pages.js:7` |
-| 🟢 | **Build-path disclosure.** umi's generated runtime embeds absolute filesystem paths, and `dist/umi.*.js` ships the build machine's directory structure to every user. Pre-existing umi 3 behaviour. | generated |
-| 🟢 | Scaffold leftovers: `public/CNAME` still reads `preview.pro.ant.design`; `config/proxy.js` dev/test proxies target the Ant Design demo host. | `public/CNAME`, `config/proxy.js` |
-
-### 6.4 Architectural note
-
-**Authorization is presentation-only.** `BasicLayout.menuDataRender` filters menu items against
-`adminRoutes` / `supervisorRoutes` / `managerRoutes` in `config/routes.js`. This hides UI; it does
-not enforce anything. All access control must be enforced by the backend.
+Findings outside dependency remediation (application-level security and repository-history
+review) were reported separately and are intentionally not recorded in this document.
 
 ---
 
@@ -306,27 +256,18 @@ On these numbers it is the opposite of one.
 
 ## 9. Open items
 
-### Blocking / needs an answer
 1. **Manual smoke test before release.** Boot, routing and rendering were verified in a headless
    browser; **no authenticated session was ever exercised.** Employee CRUD, face capture
    (`react-webcam` → `files/upload`), CSV export, and the role-based menus are unverified.
    Commit 5 (`immer`) is the one change that altered shipped code and needs the most attention —
    immer 9 tightened auto-freeze and this codebase's reducers mutate state directly, so the failure
    mode is *silent*: a list that does not refresh after a successful API call.
-2. **What Node does the production build host run?** It will now fail fast on Node < 18 by design.
-3. **Is the Maps API key referrer-restricted** in Google Cloud?
-4. **The §6.2 incident** — history purge and credential rotation are decisions, not defaults.
-
-### Recommended next
-5. Fix the post-logout token leak (§6.3). Note this becomes a **prerequisite** if umi 4 is ever
-   attempted, since `umi-request`'s interceptor API is exactly what changes.
-6. Add security headers to `server.js`; ship CSP as `Content-Security-Policy-Report-Only` first —
-   `@react-google-maps/api` injects a script from `maps.googleapis.com`, antd 4 injects inline
-   `<style>`, the webcam produces `data:` URLs, and `login.js` falls back to an avatar on
-   `gw.alipayobjects.com`.
-7. **Build real regression coverage.** Current coverage is one 35-line unit test for a regex. Every
+2. **Production build host must run Node 24** (per `.nvmrc`) and install with `npm ci`. The build
+   fails fast on Node < 18 by design. `npm ci --omit=dev` is not sufficient: the umi build needs
+   devDependencies.
+3. **Build real regression coverage.** Current coverage is one 35-line unit test for a regex. Every
    fix in this branch was validated by hand; that does not scale.
-8. Standing calendar item to run `npm audit` and review. The committed lockfile stops silent drift
+4. Standing calendar item to run `npm audit` and review. The committed lockfile stops silent drift
    in both directions — it also stops automatic uptake of patch releases.
 
 ---
