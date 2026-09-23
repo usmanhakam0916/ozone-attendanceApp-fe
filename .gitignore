@@ -17,8 +17,6 @@ yarn-error.log
 
 /coverage
 .idea
-yarn.lock
-package-lock.json
 *bak
 .vscode
 
@@ -39,3 +37,12 @@ screenshot
 
 build
 config.bat
+
+# env
+.env
+.env.local
+.env.*.local
+
+# claude code worktrees / local agent state
+.claude/worktrees/
+.claude/settings.local.json
