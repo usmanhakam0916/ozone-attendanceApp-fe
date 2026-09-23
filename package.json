@@ -97,7 +97,11 @@
     "@tootallnate/once": "^2.0.1",
     "uuid": "^11.1.1",
     "@babel/core": "^7.29.7",
-    "esbuild": "^0.25.10"
+    "esbuild": "^0.25.10",
+    "postcss": "8.5.28",
+    "postcss-safe-parser": "^6.0.0",
+    "autoprefixer": "^10.4.20",
+    "postcss-preset-env": "^7.8.3"
   },
   "engines": {
     "node": ">=18.0.0"
