@@ -34,7 +34,8 @@ screenshot
 .eslintcache
 
 build
-config.bat
+
 
 # env
 .env.*.local
+config.bat
