@@ -16,8 +16,6 @@ yarn-error.log
 
 /coverage
 .idea
-yarn.lock
-package-lock.json
 *bak
 
 # visual studio code
@@ -36,4 +34,10 @@ screenshot
 .eslintcache
 
 build
-config.bat
+
+.vscode/*
+
+# env
+.env
+.env.*
+.env.*.local
