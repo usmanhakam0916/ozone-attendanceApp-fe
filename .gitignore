@@ -34,7 +34,10 @@ screenshot
 .eslintcache
 
 build
-config.bat
+
+.vscode/*
 
 # env
+.env
+.env.*
 .env.*.local
