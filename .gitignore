@@ -34,11 +34,10 @@ screenshot
 .eslintcache
 
 build
-config.bat
+
+.vscode/*
 
 # env
+.env
+.env.*
 .env.*.local
-
-# claude code worktrees / local agent state
-.claude/worktrees/
-.claude/settings.local.json
